@@ -921,25 +921,23 @@ public class FlutterBluetoothSerialPlugin implements MethodCallHandler, RequestP
                 
                 if (call.hasArgument("string")) {
                     String string = call.argument("string");
-                    AsyncTask.execute(() -> {
-                        try {
-                            connection.write(string.getBytes());
-                            registrar.activity().runOnUiThread(new Runnable() {
-                                @Override 
-                                public void run() {
-                                    result.success(null);
-                                }
-                            });
-                        }
-                        catch (Exception ex) {
-                            registrar.activity().runOnUiThread(new Runnable() {
-                                @Override 
-                                public void run() {
-                                    result.error("write_error", ex.getMessage(), exceptionToString(ex));
-                                }
-                            });
-                        }
-                    });
+                    try {
+                        connection.write(string.getBytes());
+                        registrar.activity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.success(null);
+                            }
+                        });
+                    }
+                    catch (Exception ex) {
+                        registrar.activity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.error("write_error", ex.getMessage(), exceptionToString(ex));
+                            }
+                        });
+                    }
                 }
                 else if (call.hasArgument("bytes")) {
                     byte[] bytes = call.argument("bytes");

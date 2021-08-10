@@ -153,6 +153,7 @@ public abstract class BluetoothConnection
         public void write(byte[] bytes) {
             try {
                 output.write(bytes);
+                output.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
