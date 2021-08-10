@@ -943,25 +943,26 @@ public class FlutterBluetoothSerialPlugin implements MethodCallHandler, RequestP
                 }
                 else if (call.hasArgument("bytes")) {
                     byte[] bytes = call.argument("bytes");
-                    AsyncTask.execute(() -> {
-                        try {
-                            connection.write(bytes);
-                            registrar.activity().runOnUiThread(new Runnable() {
-                                @Override 
-                                public void run() {
-                                    result.success(null);
-                                }
-                            });
-                        }
-                        catch (Exception ex) {
-                            registrar.activity().runOnUiThread(new Runnable() {
-                                @Override 
-                                public void run() {
-                                    result.error("write_error", ex.getMessage(), exceptionToString(ex));
-                                }
-                            });
-                        }
-                    });
+                    try {
+                        connection.write(bytes);
+                        registrar.activity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.success(null);
+                            }
+                        });
+                    }
+                    catch (Exception ex) {
+                        registrar.activity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.error("write_error", ex.getMessage(), exceptionToString(ex));
+                            }
+                        });
+                    }
+//                    AsyncTask.execute(() -> {
+//
+//                    });
                 }
                 else {
                     result.error("invalid_argument", "there must be 'string' or 'bytes' argument", null);
