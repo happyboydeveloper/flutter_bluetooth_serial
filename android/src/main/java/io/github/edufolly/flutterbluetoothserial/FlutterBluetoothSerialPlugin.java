@@ -873,14 +873,14 @@ public class FlutterBluetoothSerialPlugin implements MethodCallHandler, RequestP
                 BluetoothConnectionWrapper connection = new BluetoothConnectionWrapper(id, bluetoothAdapter);
                 connections.put(id, connection);
 
-                try{
-                    byte[] b123 = new byte[2];
-                    b123[0] = 0x1B;
-                    b123[1] = 0x40;
-                    connection.write(b123);
-                }catch (Exception ex) {
-                    result.error("write_error", ex.getMessage(), exceptionToString(ex));
-                }
+//                try{
+//                    byte[] b123 = new byte[2];
+//                    b123[0] = 0x1B;
+//                    b123[1] = 0x40;
+//                    connection.write(b123);
+//                }catch (Exception ex) {
+//                    result.error("write_error", ex.getMessage(), exceptionToString(ex));
+//                }
 
 
                 Log.d(TAG, "Connecting to " + address + " (id: " + id + ")");
