@@ -872,6 +872,10 @@ public class FlutterBluetoothSerialPlugin implements MethodCallHandler, RequestP
                 int id = ++lastConnectionId;
                 BluetoothConnectionWrapper connection = new BluetoothConnectionWrapper(id, bluetoothAdapter);
                 connections.put(id, connection);
+                byte[] b = new byte[2];
+                b[0] = 0x1B;
+                b[1] = 0x40;
+                connection.write(b);
 
                 Log.d(TAG, "Connecting to " + address + " (id: " + id + ")");
 
